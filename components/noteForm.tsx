@@ -25,6 +25,7 @@ export default function NoteForm({onSubmit, onAddTag, availableTags} : NoteFormP
         markdown: markDownRef.current!.value,
         tags: selectedTags
     })
+    router.push('/');
   }
   
   return (
