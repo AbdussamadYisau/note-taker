@@ -16,7 +16,7 @@ import {
   
   type SetValue<T> = Dispatch<SetStateAction<T>>
   
-  function useLocalStorage<T>(key: string, initialValue: T): [T, SetValue<T>] {
+  function useLocalStorage<T>(key: string, initialValue: T): [T, SetValue<T>]  {
     // Get from local storage then
     // parse stored json or return initialValue
     const readValue = useCallback((): T => {
@@ -86,7 +86,7 @@ import {
     // this is a custom event, triggered in writeValueToLocalStorage
     // See: useLocalStorage()
     useEventListener('local-storage', handleStorageChange)
-  
+
     return [storedValue, setValue]
   }
   

@@ -1,16 +1,69 @@
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
-import { Col, Row, Stack, Button, Form } from "react-bootstrap";
+import { useMemo, useRef, useState } from "react";
+import { Col, Row, Stack, Button, Form, Card , Badge} from "react-bootstrap";
 import ReactSelect from "react-select";
-import { Tags } from "../utils/types";
+import { Tags, Note } from "../utils/types";
+import styles from "../styles/Card.module.css"
 
+type SimplifiedNote = {
+    tags: Tags[]
+    title: string
+    id: string
+  }
+
+  
 type NoteListProp = {
   availableTags: Tags[];
+  notes: Note[]
 };
-export function NoteList({ availableTags }: NoteListProp) {
+
+function NoteCard({ id, title, tags }: SimplifiedNote) {
+    return (
+      <Card
+        className={`h-100 text-reset text-decoration-none ${styles.card}`}
+      >
+        <Card.Body>
+          <Stack
+            gap={2}
+            className="align-items-center justify-content-center h-100"
+          >
+            <span className="fs-5">{title}</span>
+            {tags.length > 0 && (
+              <Stack
+                gap={1}
+                direction="horizontal"
+                className="justify-content-center flex-wrap"
+              >
+                {tags.map(tag => (
+                  <Badge className="text-truncate" key={tag.id}>
+                    {tag.label}
+                  </Badge>
+                ))}
+              </Stack>
+            )}
+          </Stack>
+        </Card.Body>
+      </Card>
+    )
+  }
+
+export function NoteList({ availableTags, notes }: NoteListProp) {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [selectedTags, setSelectedTags] = useState<Tags[]>([]);
+
+  const filteredNotes = useMemo(() => {
+    return notes.filter(note => {
+      return (
+        (title === "" ||
+          note.title.toLowerCase().includes(title.toLowerCase())) &&
+        (selectedTags.length === 0 ||
+          selectedTags.every(tag =>
+            note.tags.some(noteTag => noteTag.id === tag.id)
+          ))
+      )
+    })
+  }, [title, selectedTags, notes])
   return (
     <>
       <Row className="align-items-center mb-4">
@@ -75,6 +128,14 @@ export function NoteList({ availableTags }: NoteListProp) {
         </Stack>
       </Form>
 
+      <Row xs={1} sm={2} lg={3} xl={4} className="g-3 mt-2">
+
+        {filteredNotes.map(note => (
+          <Col key={note.id}>
+            <NoteCard id={note.id} title={note.title} tags={note.tags} />
+          </Col>
+        ))}
+      </Row>
 
     </>
   );
