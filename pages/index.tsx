@@ -9,7 +9,7 @@ import { Tags, RawNote} from '../utils/types'
 
 export default function Home() {
   const [tags, setTags] = useLocalStorage<Tags[]>("TAGS", []);
-  const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
+  const [notes] = useLocalStorage<RawNote[]>("NOTES", []);
   const notesWithTags = useMemo(() => {
     return notes.map(note => {
       return { ...note, tags: tags.filter(tag => note.tagIds.includes(tag.id)) }

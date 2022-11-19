@@ -4,12 +4,8 @@ import { Col, Row, Stack, Button, Form, Card , Badge, Modal} from "react-bootstr
 import ReactSelect from "react-select";
 import { Tags, Note } from "../utils/types";
 import styles from "../styles/Card.module.css"
-
-type SimplifiedNote = {
-    tags: Tags[]
-    title: string
-    id: string
-  }
+import EditTagsModal from "./editTagsModal";
+import NoteCard from "./noteCard";
 
   
 type NoteListProp = {
@@ -19,92 +15,12 @@ type NoteListProp = {
   onUpdateTag: (id: string, label: string) => void
 };
 
-type EditTagsModalProps = {
-  show: boolean
-  availableTags: Tags[]
-  handleClose: () => void
-  onDeleteTag: (id: string) => void
-  onUpdateTag: (id: string, label: string) => void
-}
-
-function EditTagsModal({
-  availableTags,
-  handleClose,
-  show,
-  onDeleteTag,
-  onUpdateTag,
-}: EditTagsModalProps) {
-  return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Edit Tags</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Stack gap={2}>
-            {availableTags.map(tag => (
-              <Row key={tag.id}>
-                <Col>
-                  <Form.Control
-                    type="text"
-                    value={tag.label}
-                    onChange={e => onUpdateTag(tag.id, e.target.value)}
-                  />
-                </Col>
-                <Col xs="auto">
-                  <Button
-                    onClick={() => onDeleteTag(tag.id)}
-                    variant="outline-danger"
-                  >
-                    &times;
-                  </Button>
-                </Col>
-              </Row>
-            ))}
-          </Stack>
-        </Form>
-      </Modal.Body>
-    </Modal>
-  )
-}
-
-function NoteCard({ id, title, tags }: SimplifiedNote) {
-  const router = useRouter();
-    return (
-      <Card
-        className={`h-100 text-reset text-decoration-none ${styles.card}`}
-        onClick={() => router.push(`/${id}`)}
-
-      >
-        <Card.Body>
-          <Stack
-            gap={2}
-            className="align-items-center justify-content-center h-100"
-          >
-            <span className="fs-5">{title}</span>
-            {tags.length > 0 && (
-              <Stack
-                gap={1}
-                direction="horizontal"
-                className="justify-content-center flex-wrap"
-              >
-                {tags.map(tag => (
-                  <Badge className="text-truncate" key={tag.id}>
-                    {tag.label}
-                  </Badge>
-                ))}
-              </Stack>
-            )}
-          </Stack>
-        </Card.Body>
-      </Card>
-    )
-  }
 
 export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: NoteListProp) {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [selectedTags, setSelectedTags] = useState<Tags[]>([]);
+  const [editTagsModalIsOpen, setEditTagsModalIsOpen] = useState(false);
 
   const filteredNotes = useMemo(() => {
     return notes.filter(note => {
@@ -118,7 +34,7 @@ export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: Not
       )
     })
   }, [title, selectedTags, notes])
-  const [editTagsModalIsOpen, setEditTagsModalIsOpen] = useState(false)
+ 
   return (
     <>
       <Row className="align-items-center mb-4">
