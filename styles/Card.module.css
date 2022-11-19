@@ -2,6 +2,9 @@
     transition: translate ease-in-out 100ms, box-shadow ease-in-out 100ms;
   }
   
+  .card:hover {
+    cursor: pointer;
+  }
   .card:hover,
   .card:focus {
     translate: 0 -5px;

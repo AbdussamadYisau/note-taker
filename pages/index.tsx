@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { useMemo,useState, useEffect } from 'react'
 import { NoteList } from '../components/noteList'
 import styles from '../styles/Home.module.css'
@@ -38,7 +37,6 @@ export default function Home() {
       </Head>
 
       <main 
-      // className={styles.main}
       className='my-4'
       >
           <NoteList 

@@ -18,9 +18,12 @@ type NoteListProp = {
 };
 
 function NoteCard({ id, title, tags }: SimplifiedNote) {
+  const router = useRouter();
     return (
       <Card
         className={`h-100 text-reset text-decoration-none ${styles.card}`}
+        onClick={() => router.push(`/${id}`)}
+        
       >
         <Card.Body>
           <Stack
