@@ -6,6 +6,7 @@ import useLocalStorage from '../utils/hooks/useLocalStorage'
 import { Tags, RawNote} from '../utils/types'
 
 
+
 export default function Home() {
   const [tags, setTags] = useLocalStorage<Tags[]>("TAGS", []);
   const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
@@ -14,6 +15,24 @@ export default function Home() {
       return { ...note, tags: tags.filter(tag => note.tagIds.includes(tag.id)) }
     })
   }, [notes, tags])
+
+  function updateTag(id: string, label: string) {
+    setTags(prevTags => {
+      return prevTags.map(tag => {
+        if (tag.id === id) {
+          return { ...tag, label }
+        } else {
+          return tag
+        }
+      })
+    })
+  }
+
+  function deleteTag(id: string) {
+    setTags(prevTags => {
+      return prevTags.filter(tag => tag.id !== id)
+    })
+  }
 
   const [showChild, setShowChild] = useState(false);
   useEffect(() => {
@@ -42,6 +61,8 @@ export default function Home() {
           <NoteList 
           availableTags={tags}
           notes={notesWithTags}
+          onUpdateTag={updateTag}
+          onDeleteTag={deleteTag}
           />
         
       </main>

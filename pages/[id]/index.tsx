@@ -9,6 +9,12 @@ export default function index() {
     const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
     const [tags, setTags] = useLocalStorage<Tags[]>("TAGS", []);
 
+    function onDeleteNote(id: string) {
+        setNotes(prevNotes => {
+          return prevNotes.filter(note => note.id !== id)
+        })
+      }
+
     const router = useRouter()
     const { id } = router.query
 
@@ -20,6 +26,6 @@ export default function index() {
 
     const note = notesWithTags.find(n => n.id === id);
     if (!note) return <p> Doesn't exist</p>
-    return <ShowNote note={note}/>
+    return <ShowNote note={note} onDelete={onDeleteNote}/>
 
 }

@@ -6,10 +6,11 @@ import { Note } from "../../utils/types"
 
 
 type NoteProps = {
-  note: Note
+  note: Note,
+  onDelete : (id: string) => void
 }
 
-export default function ShowNote({note} :NoteProps) {
+export default function ShowNote({note, onDelete} :NoteProps) {
   const router = useRouter();
   return (
     <div className="my-4 mx-4">
@@ -34,6 +35,10 @@ export default function ShowNote({note} :NoteProps) {
           <Button
 
             variant="outline-danger"
+            onClick={() => {
+              onDelete(note.id);
+              router.push('/')
+            }}
           >
             Delete
           </Button>

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useMemo, useRef, useState } from "react";
-import { Col, Row, Stack, Button, Form, Card , Badge} from "react-bootstrap";
+import { Col, Row, Stack, Button, Form, Card , Badge, Modal} from "react-bootstrap";
 import ReactSelect from "react-select";
 import { Tags, Note } from "../utils/types";
 import styles from "../styles/Card.module.css"
@@ -14,8 +14,59 @@ type SimplifiedNote = {
   
 type NoteListProp = {
   availableTags: Tags[];
-  notes: Note[]
+  notes: Note[];
+  onDeleteTag: (id: string) => void
+  onUpdateTag: (id: string, label: string) => void
 };
+
+type EditTagsModalProps = {
+  show: boolean
+  availableTags: Tags[]
+  handleClose: () => void
+  onDeleteTag: (id: string) => void
+  onUpdateTag: (id: string, label: string) => void
+}
+
+function EditTagsModal({
+  availableTags,
+  handleClose,
+  show,
+  onDeleteTag,
+  onUpdateTag,
+}: EditTagsModalProps) {
+  return (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Edit Tags</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Stack gap={2}>
+            {availableTags.map(tag => (
+              <Row key={tag.id}>
+                <Col>
+                  <Form.Control
+                    type="text"
+                    value={tag.label}
+                    onChange={e => onUpdateTag(tag.id, e.target.value)}
+                  />
+                </Col>
+                <Col xs="auto">
+                  <Button
+                    onClick={() => onDeleteTag(tag.id)}
+                    variant="outline-danger"
+                  >
+                    &times;
+                  </Button>
+                </Col>
+              </Row>
+            ))}
+          </Stack>
+        </Form>
+      </Modal.Body>
+    </Modal>
+  )
+}
 
 function NoteCard({ id, title, tags }: SimplifiedNote) {
   const router = useRouter();
@@ -23,7 +74,7 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
       <Card
         className={`h-100 text-reset text-decoration-none ${styles.card}`}
         onClick={() => router.push(`/${id}`)}
-        
+
       >
         <Card.Body>
           <Stack
@@ -50,7 +101,7 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
     )
   }
 
-export function NoteList({ availableTags, notes }: NoteListProp) {
+export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: NoteListProp) {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [selectedTags, setSelectedTags] = useState<Tags[]>([]);
@@ -67,6 +118,7 @@ export function NoteList({ availableTags, notes }: NoteListProp) {
       )
     })
   }, [title, selectedTags, notes])
+  const [editTagsModalIsOpen, setEditTagsModalIsOpen] = useState(false)
   return (
     <>
       <Row className="align-items-center mb-4">
@@ -83,7 +135,9 @@ export function NoteList({ availableTags, notes }: NoteListProp) {
               Create
             </Button>
 
-            <Button type="button" variant="outline-secondary">
+            <Button type="button" variant="outline-secondary"
+            onClick={() => setEditTagsModalIsOpen(true)}
+            >
               Edit Tags
             </Button>
           </Stack>
@@ -139,6 +193,14 @@ export function NoteList({ availableTags, notes }: NoteListProp) {
           </Col>
         ))}
       </Row>
+
+      <EditTagsModal
+        onUpdateTag={onUpdateTag}
+        onDeleteTag={onDeleteTag}
+        show={editTagsModalIsOpen}
+        handleClose={() => setEditTagsModalIsOpen(false)}
+        availableTags={availableTags}
+      />
 
     </>
   );
