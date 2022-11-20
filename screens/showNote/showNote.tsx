@@ -2,6 +2,7 @@ import { useRouter } from "next/router"
 import { Badge, Button, Col, Row, Stack } from "react-bootstrap"
 import ReactMarkdown from "react-markdown"
 import { Note } from "../../utils/types"
+import gfm from 'remark-gfm'
 
 
 
@@ -51,7 +52,7 @@ export default function ShowNote({note, onDelete} :NoteProps) {
         </Stack>
       </Col>
     </Row>
-    <ReactMarkdown>{note.markdown}</ReactMarkdown>
+    <ReactMarkdown remarkPlugins={[gfm]}>{note.markdown}</ReactMarkdown>
 
   </div>
   )
