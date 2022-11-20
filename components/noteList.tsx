@@ -5,10 +5,8 @@ import ReactSelect from "react-select";
 import { Tags, Note } from "../utils/types";
 import EditTagsModal from "./editTagsModal";
 import NoteCard from "./noteCard";
-import { useTheme } from 'next-themes'
-import Image from "next/image";
+import ThemeIcon from "./icon";
 
-  
 type NoteListProp = {
   availableTags: Tags[];
   notes: Note[];
@@ -16,29 +14,6 @@ type NoteListProp = {
   onUpdateTag: (id: string, label: string) => void
 };
 
-
-const ThemedImage = () => {
-  const { theme, setTheme } = useTheme()
-  return (
-    <>
-      {/* When the theme is dark, hide this div */}
-      <div data-hide-on-theme="dark">
-        <Image src={"/dark.png"} width={40} height={40} alt="light icon"
-        role="button"
-        onClick={() => setTheme('dark') }
-        />
-      </div>
-
-      {/* When the theme is light, hide this div */}
-      <div data-hide-on-theme="light">
-        <Image src={"/light.webp"} width={50} height={50} alt="dark icon"
-        role="button"
-         onClick={() => setTheme('light') }
-        />
-      </div>
-    </>
-  )
-}
 
 export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: NoteListProp) {
   const router = useRouter();
@@ -66,8 +41,8 @@ export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: Not
           <h1>Notes</h1>
         </Col>
         <Col xs="auto">
-          <Stack gap={2} direction="horizontal">
-            <ThemedImage />
+          <Stack gap={4} direction="horizontal">
+          <ThemeIcon role={'button'} />
             <Button
               type="button"
               variant="primary"

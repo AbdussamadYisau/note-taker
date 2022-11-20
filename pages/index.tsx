@@ -54,6 +54,8 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Note Taker</title>
+        <meta charSet="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="description" content="Advanced Note Taker" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
