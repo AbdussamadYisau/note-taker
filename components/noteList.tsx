@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
-import { useMemo, useRef, useState } from "react";
-import { Col, Row, Stack, Button, Form, Card , Badge, Modal} from "react-bootstrap";
+import { useMemo, useEffect, useState } from "react";
+import { Col, Row, Stack, Button, Form} from "react-bootstrap";
 import ReactSelect from "react-select";
 import { Tags, Note } from "../utils/types";
-import styles from "../styles/Card.module.css"
 import EditTagsModal from "./editTagsModal";
 import NoteCard from "./noteCard";
+import { useTheme } from 'next-themes'
+import Image from "next/image";
 
   
 type NoteListProp = {
@@ -15,6 +16,52 @@ type NoteListProp = {
   onUpdateTag: (id: string, label: string) => void
 };
 
+const ThemeChanger = () => {
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
+
+  // useEffect only runs on the client, so now we can safely show the UI
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+
+
+  { return theme === 'light' ? (
+    <Button type="button" onClick={() => setTheme('dark')}>Dark Mode </Button>
+  ) : 
+  (
+    <Button type="button" onClick={() => setTheme('light')}>Light Mode</Button>
+  )
+
+  }
+}
+
+const ThemedImage = () => {
+  const { theme, setTheme } = useTheme()
+  return (
+    <>
+      {/* When the theme is dark, hide this div */}
+      <div data-hide-on-theme="dark">
+        <Image src={"/dark.png"} width={40} height={40} alt="light icon"
+        role="button"
+        onClick={() => setTheme('dark') }
+        />
+      </div>
+
+      {/* When the theme is light, hide this div */}
+      <div data-hide-on-theme="light">
+        <Image src={"/light.webp"} width={50} height={50} alt="dark icon"
+        role="button"
+         onClick={() => setTheme('light') }
+        />
+      </div>
+    </>
+  )
+}
 
 export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: NoteListProp) {
   const router = useRouter();
@@ -43,6 +90,8 @@ export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: Not
         </Col>
         <Col xs="auto">
           <Stack gap={2} direction="horizontal">
+            {/* <ThemeChanger /> */}
+            <ThemedImage />
             <Button
               type="button"
               variant="primary"
@@ -80,6 +129,8 @@ export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: Not
                 <Form.Label>Tags</Form.Label>
 
                 <ReactSelect
+
+                  className="reactSelect"
                   value={selectedTags.map((tag) => {
                     return { label: tag.label, value: tag.id };
                   })}

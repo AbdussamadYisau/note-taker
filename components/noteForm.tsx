@@ -49,6 +49,7 @@ export default function NoteForm({onSubmit, onAddTag, availableTags} : NoteFormP
                     </Form.Label>
 
                     <CreatableReactSelect
+                    className="reactSelect"
                     value={selectedTags.map(tag => {
                         return {label: tag.label, value: tag.id }
                     })}

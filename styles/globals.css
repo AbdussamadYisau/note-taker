@@ -20,12 +20,35 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+
+
+[data-theme='dark'], [data-theme='dark'] body {
+  background-color: #121212;
+  color: #d7d7d7;
+}
+
+[data-theme='dark'] h1, [data-theme='dark'] label, [data-theme='dark'] p {
+  color: #d7d7d7;
+}
+
+[data-theme='dark'] .card-body {
+  background-color: #d7d7d7;
+}
+
+[data-theme='dark'] .fs-5 {
+  color: #212529;
+}
+
+[data-theme='dark'] span .badge {
+  background-color: #0C6DFD;
+  color: #fff;
+}
+
+[data-theme='dark'] .reactSelect {
+  color: black;
+}
+
+[data-theme='dark'] [data-hide-on-theme='dark'],
+[data-theme='light'] [data-hide-on-theme='light'] {
+  display: none;
 }

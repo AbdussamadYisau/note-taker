@@ -4,6 +4,9 @@ import { NoteList } from '../components/noteList'
 import styles from '../styles/Home.module.css'
 import useLocalStorage from '../utils/hooks/useLocalStorage'
 import { Tags, RawNote} from '../utils/types'
+import { useTheme } from 'next-themes'
+
+
 
 
 
@@ -54,6 +57,7 @@ export default function Home() {
         <meta name="description" content="Advanced Note Taker" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
 
       <main 
       className='my-4'
