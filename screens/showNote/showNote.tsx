@@ -47,7 +47,7 @@ export default function ShowNote({note, onDelete} :NoteProps) {
           >
             Delete
           </Button>
-            <Button variant="outline-secondary" onClick={() => router.back()}>Back</Button>
+            <Button variant="outline-secondary" onClick={() => router.push('/')}>Back</Button>
      
         </Stack>
       </Col>

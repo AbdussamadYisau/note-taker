@@ -48,6 +48,10 @@ a {
   color: black;
 }
 
+[data-theme='dark'] .modal-content {
+  background-color: #121212;
+}
+
 [data-theme='dark'] [data-hide-on-theme='dark'],
 [data-theme='light'] [data-hide-on-theme='light'] {
   display: none;
