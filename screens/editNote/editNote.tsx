@@ -13,7 +13,7 @@ type EditNoteProps = {
 
 export default function EditNote({ onSubmit, onAddTag, note, availableTags }: EditNoteProps) {
   return (
-    <>
+    <div className='my-4 mx-4'>
     <h1 className="mb-4">Edit Note</h1>
     <NoteForm
       title={note.title}
@@ -23,6 +23,6 @@ export default function EditNote({ onSubmit, onAddTag, note, availableTags }: Ed
       onAddTag={onAddTag}
       availableTags={availableTags}
     />
-  </>
+  </div>
   )
 }
