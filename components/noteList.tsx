@@ -16,29 +16,6 @@ type NoteListProp = {
   onUpdateTag: (id: string, label: string) => void
 };
 
-const ThemeChanger = () => {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
-
-  // useEffect only runs on the client, so now we can safely show the UI
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return null
-  }
-
-
-  { return theme === 'light' ? (
-    <Button type="button" onClick={() => setTheme('dark')}>Dark Mode </Button>
-  ) : 
-  (
-    <Button type="button" onClick={() => setTheme('light')}>Light Mode</Button>
-  )
-
-  }
-}
 
 const ThemedImage = () => {
   const { theme, setTheme } = useTheme()
@@ -90,7 +67,6 @@ export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: Not
         </Col>
         <Col xs="auto">
           <Stack gap={2} direction="horizontal">
-            {/* <ThemeChanger /> */}
             <ThemedImage />
             <Button
               type="button"

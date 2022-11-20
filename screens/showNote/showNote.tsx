@@ -30,7 +30,11 @@ export default function ShowNote({note, onDelete} :NoteProps) {
       <Col xs="auto">
         <Stack gap={2} direction="horizontal">
        
-            <Button variant="primary">Edit</Button>
+            <Button variant="primary" 
+            onClick={() => {
+              router.push(`/${note.id}/edit`)
+            }}
+            >Edit</Button>
  
           <Button
 
