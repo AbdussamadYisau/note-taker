@@ -4,16 +4,14 @@ import { useRouter } from "next/router";
 import { FormEvent, useRef, useState } from "react";
 import { NoteData, Tags } from "../utils/types";
 import { v4 as uuidV4 } from "uuid";
-import ReminderModal from "./reminderModal";
-import Datetime from 'react-datetime';
+import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
-import moment from 'moment';
-const yesterday = moment().subtract( 1, 'day' );
-const valid = function( current: object | any ){
-    return current.isAfter( yesterday );
+import moment from "moment";
+
+const yesterday = moment().subtract(1, "day");
+const valid = function (current: object | any) {
+  return current.isAfter(yesterday);
 };
-
-
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
@@ -27,7 +25,7 @@ export default function NoteForm({
   availableTags,
   title = "",
   markdown = "",
-  date="",
+  date = "",
   tags = [],
 }: NoteFormProps) {
   const router = useRouter();
@@ -38,11 +36,10 @@ export default function NoteForm({
   const markDownRef = useRef<HTMLTextAreaElement>(null);
   const [selectedTags, setSelectedTags] = useState<Tags[]>(tags);
   let inputProps = {
-    placeholder: 'Choose a date and time',
+    placeholder: "Choose a date and time",
     ref: dateRef,
     // className: 'darkModeFields'
   };
-  
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -56,7 +53,6 @@ export default function NoteForm({
     for (let index = 0; index < selectedTags.length; index++) {
       const label = selectedTags[index];
       onAddTag(label);
-
     }
 
     if (id) {
@@ -74,7 +70,13 @@ export default function NoteForm({
             <Form.Group controlId="title">
               <Form.Label>Title</Form.Label>
 
-              <Form.Control ref={titleRef} required defaultValue={title} className="darkModeFields" placeholder="Name of task/note" />
+              <Form.Control
+                ref={titleRef}
+                required
+                defaultValue={title}
+                className="darkModeFields"
+                placeholder="Name of task/note"
+              />
             </Form.Group>
           </Col>
 
@@ -88,7 +90,7 @@ export default function NoteForm({
                 })}
                 onCreateOption={(label) => {
                   const newTag = { id: uuidV4(), label };
-                  
+
                   setSelectedTags((prev) => [...prev, newTag]);
                 }}
                 options={availableTags.map((tag) => {
@@ -124,14 +126,13 @@ export default function NoteForm({
         </Form.Group>
 
         <Form.Group controlId="reminder-date">
-        <Form.Label>Reminder?</Form.Label>
-        <Datetime
-        isValidDate={valid}
-        inputProps={inputProps}
-        dateFormat="DD/MM/YY"
-        initialValue={date}
-         />
-
+          <Form.Label>Reminder?</Form.Label>
+          <Datetime
+            isValidDate={valid}
+            inputProps={inputProps}
+            dateFormat="DD/MM/YY"
+            initialValue={date}
+          />
         </Form.Group>
 
         <Stack direction="horizontal" gap={2} className="justify-content-end">

@@ -74,7 +74,7 @@ export function NoteList({
                 <Form.Label>Title</Form.Label>
 
                 <Form.Control
-                className="darkModeFields"
+                  className="darkModeFields"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
