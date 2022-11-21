@@ -7,6 +7,8 @@ import { v4 as uuidV4 } from "uuid";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import moment from "moment";
+import useLocalStorage from "../utils/hooks/useLocalStorage";
+
 
 const yesterday = moment().subtract(1, "day");
 const valid = function (current: object | any) {
@@ -35,6 +37,7 @@ export default function NoteForm({
   const dateRef = useRef<HTMLInputElement>(null);
   const markDownRef = useRef<HTMLTextAreaElement>(null);
   const [selectedTags, setSelectedTags] = useState<Tags[]>(tags);
+  const [tagStorage, setTags] = useLocalStorage<Tags[]>("TAGS", []);
   let inputProps = {
     placeholder: "Choose a date and time",
     ref: dateRef,
@@ -52,7 +55,12 @@ export default function NoteForm({
 
     for (let index = 0; index < selectedTags.length; index++) {
       const label = selectedTags[index];
-      onAddTag(label);
+      const tagExistsAlready = tagStorage.filter((tag) => 
+      tag.id === selectedTags[index].id && tag.label === selectedTags[index].label );
+
+      if (Object.keys(tagExistsAlready).length === 0) {
+        onAddTag(label)
+      }
     }
 
     if (id) {

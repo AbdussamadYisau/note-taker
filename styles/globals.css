@@ -63,13 +63,14 @@ a {
   color: #fff;
 }
 
-[data-theme="dark"] .react-select-container {
+[data-theme="dark"] .react-select-container, [data-theme="dark"] .react-select__control {
   background-color: rgba(0, 0, 0, 0.9);
   color: #d7d7d7;
 }
 
 [data-theme="dark"] .react-select__menu {
-  color: black;
+  color: rgba(0, 0, 0, 0.9);
+  background-color: #d7d7d7;
 }
 
 [data-theme="dark"] .react-select__multi-value__remove {
