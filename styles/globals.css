@@ -20,7 +20,9 @@ a {
   box-sizing: border-box;
 }
 
-
+.rdtPicker {
+  bottom: 100%;
+}
 
 [data-theme='dark'], [data-theme='dark'] body {
   background-color: #121212;
