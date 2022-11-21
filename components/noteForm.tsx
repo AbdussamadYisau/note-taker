@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { FormEvent, useRef, useState } from "react";
 import { NoteData, Tags } from "../utils/types";
 import { v4 as uuidV4 } from "uuid";
-// import ReminderModal from "./reminderModal";
+import ReminderModal from "./reminderModal";
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 import moment from 'moment';
@@ -39,7 +39,8 @@ export default function NoteForm({
   const [selectedTags, setSelectedTags] = useState<Tags[]>(tags);
   let inputProps = {
     placeholder: 'Choose a date and time',
-    ref: dateRef
+    ref: dateRef,
+    // className: 'darkModeFields'
   };
   
 
@@ -73,7 +74,7 @@ export default function NoteForm({
             <Form.Group controlId="title">
               <Form.Label>Title</Form.Label>
 
-              <Form.Control ref={titleRef} required defaultValue={title} />
+              <Form.Control ref={titleRef} required defaultValue={title} className="darkModeFields" placeholder="Name of task/note" />
             </Form.Group>
           </Col>
 
@@ -82,7 +83,6 @@ export default function NoteForm({
               <Form.Label>Tags</Form.Label>
 
               <CreatableReactSelect
-                className="reactSelect"
                 value={selectedTags.map((tag) => {
                   return { label: tag.label, value: tag.id };
                 })}
@@ -102,6 +102,9 @@ export default function NoteForm({
                   );
                 }}
                 isMulti
+                className="react-select-container"
+                classNamePrefix="react-select"
+                placeholder="Create/choose a tag"
               />
             </Form.Group>
           </Col>
@@ -116,6 +119,7 @@ export default function NoteForm({
             rows={15}
             ref={markDownRef}
             defaultValue={markdown}
+            className="darkModeFields"
           />
         </Form.Group>
 
@@ -126,7 +130,6 @@ export default function NoteForm({
         inputProps={inputProps}
         dateFormat="DD/MM/YY"
         initialValue={date}
-        
          />
 
         </Form.Group>

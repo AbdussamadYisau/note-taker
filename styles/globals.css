@@ -21,8 +21,10 @@ a {
 }
 
 .rdtPicker {
-  bottom: 100%;
+  bottom: 120%;
+  left: 10%;
 }
+
 
 [data-theme='dark'], [data-theme='dark'] body {
   background-color: #121212;
@@ -32,20 +34,25 @@ a {
   color: #d7d7d7;
 }
 
+[data-theme='dark'] .darkModeFields, [data-theme='dark'] .darkModeFields:focus  {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #d7d7d7;
+}
+
 [data-theme='dark'] h1, [data-theme='dark'] label, [data-theme='dark'] p {
   color: #d7d7d7;
 }
 
 [data-theme='dark'] .card-body {
-  background-color: #d7d7d7;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 [data-theme='dark'] .fa-sun {
   color: #fff;
 }
 
-[data-theme='dark'] .fs-5 {
-  color: #212529;
+[data-theme='dark'] .fs-5, [data-theme='dark'] .fs-6 {
+  color: #d7d7d7;
 }
 
 [data-theme='dark'] span .badge {
@@ -53,15 +60,25 @@ a {
   color: #fff;
 }
 
-[data-theme='dark'] .reactSelect {
+[data-theme='dark'] .react-select-container {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #d7d7d7;
+
+}
+
+
+[data-theme='dark'] .react-select__menu {
   color: black;
+}
+
+[data-theme='dark'] .react-select__multi-value__remove {
+  color: red;
 }
 
 [data-theme='dark'] .modal-content {
   background-color: #121212;
 }
 
-[data-theme='dark'] [data-hide-on-theme='dark'],
-[data-theme='light'] [data-hide-on-theme='light'] {
-  display: none;
+[data-theme='dark'] .modal-title {
+  color: #d7d7d7;
 }
