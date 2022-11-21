@@ -34,6 +34,12 @@ export default function NoteForm({
       tags: selectedTags,
     });
 
+    for (let index = 0; index < selectedTags.length; index++) {
+      const label = selectedTags[index];
+      onAddTag(label);
+
+    }
+
     if (id) {
       router.push(`/${id}`);
     } else {
@@ -64,7 +70,7 @@ export default function NoteForm({
                 })}
                 onCreateOption={(label) => {
                   const newTag = { id: uuidV4(), label };
-                  onAddTag(newTag);
+                  
                   setSelectedTags((prev) => [...prev, newTag]);
                 }}
                 options={availableTags.map((tag) => {
