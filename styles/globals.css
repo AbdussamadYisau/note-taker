@@ -24,6 +24,9 @@ a {
 
 [data-theme='dark'], [data-theme='dark'] body {
   background-color: #121212;
+}
+
+[data-theme='dark'] .show-note {
   color: #d7d7d7;
 }
 
@@ -33,6 +36,10 @@ a {
 
 [data-theme='dark'] .card-body {
   background-color: #d7d7d7;
+}
+
+[data-theme='dark'] .fa-sun {
+  color: #fff;
 }
 
 [data-theme='dark'] .fs-5 {

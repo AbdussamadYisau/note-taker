@@ -5,7 +5,8 @@ export type Note = {
 export type NoteData = {
     title: string,
     markdown: string,
-    tags: Tags[]
+    tags: Tags[],
+    date? : string
 }
 
 export type Tags = {

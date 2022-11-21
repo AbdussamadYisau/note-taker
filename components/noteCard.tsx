@@ -10,10 +10,11 @@ type SimplifiedNote = {
     tags: Tags[]
     title: string
     id: string
+    date?:string
   }
 
 
-export default function NoteCard({ id, title, tags }: SimplifiedNote) {
+export default function NoteCard({ id, title, tags, date }: SimplifiedNote) {
     const router = useRouter();
       return (
         <Card
@@ -40,7 +41,9 @@ export default function NoteCard({ id, title, tags }: SimplifiedNote) {
                   ))}
                 </Stack>
               )}
+              <span className="fs-6">{date}</span>
             </Stack>
+
           </Card.Body>
         </Card>
       )

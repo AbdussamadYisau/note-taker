@@ -107,7 +107,7 @@ export function NoteList({ availableTags, notes, onUpdateTag, onDeleteTag }: Not
 
         {filteredNotes.map(note => (
           <Col key={note.id}>
-            <NoteCard id={note.id} title={note.title} tags={note.tags} />
+            <NoteCard id={note.id} title={note.title} tags={note.tags} date={note.date} />
           </Col>
         ))}
       </Row>

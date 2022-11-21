@@ -27,6 +27,7 @@ export default function ShowNote({note, onDelete} :NoteProps) {
             ))}
           </Stack>
         )}
+        
       </Col>
       <Col xs="auto">
         <Stack gap={2} direction="horizontal">
@@ -51,8 +52,9 @@ export default function ShowNote({note, onDelete} :NoteProps) {
      
         </Stack>
       </Col>
+      <p className="mt-4">{note.date}</p>
     </Row>
-    <ReactMarkdown remarkPlugins={[gfm]}>{note.markdown}</ReactMarkdown>
+    <ReactMarkdown remarkPlugins={[gfm]} className="show-note">{note.markdown}</ReactMarkdown>
 
   </div>
   )
