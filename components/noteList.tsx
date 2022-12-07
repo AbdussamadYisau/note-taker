@@ -38,6 +38,7 @@ export function NoteList({
     });
   }, [title, selectedTags, notes]);
 
+
   return (
     <>
       <Row className="align-items-center mb-4">
@@ -74,11 +75,11 @@ export function NoteList({
                 <Form.Label>Title</Form.Label>
 
                 <Form.Control
-                  className="darkModeFields"
+                  className="darkModeFields text-truncate"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
-                  placeholder="Type something..."
+                  placeholder="Type Something"
                 />
               </Form.Group>
             </Col>
@@ -104,7 +105,7 @@ export function NoteList({
                     );
                   }}
                   isMulti
-                  placeholder="Filter by tag"
+                  placeholder="Filter By Tags"
                 />
               </Form.Group>
             </Col>

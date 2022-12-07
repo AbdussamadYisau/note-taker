@@ -84,3 +84,10 @@ a {
 [data-theme="dark"] .modal-title {
   color: #d7d7d7;
 }
+
+
+.react-select__placeholder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

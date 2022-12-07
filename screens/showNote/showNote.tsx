@@ -14,12 +14,12 @@ export default function ShowNote({ note, onDelete }: NoteProps) {
   return (
     <div className="my-4 mx-4">
       <Row className="align-items-center mb-4">
-        <Col>
+        <Col className="mb-4">
           <h1>{note.title}</h1>
           {note.tags.length > 0 && (
             <Stack gap={1} direction="horizontal" className="flex-wrap">
               {note.tags.map((tag) => (
-                <Badge className="text-truncate mt-2 mb-2" key={tag.id}>
+                <Badge className="text-truncate" key={tag.id}>
                   {tag.label}
                 </Badge>
               ))}
